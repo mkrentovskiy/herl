@@ -1,0 +1,12 @@
+{application, herl,
+ [
+  {description, "Hardware Erlang Controller"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [              
+  					kernel,
+                	stdlib
+                 ]},
+  {mod, { herl_app, []}},
+  {env, []}
+ ]}.
