@@ -27,7 +27,7 @@ start_link() ->
 init([]) ->
 	Pins = lists:map(fun({Pin, D}) -> 
 			Name = list_to_atom("gpio" ++ integer_to_list(Pin)),
-			{Name, {gpio, start_link, [{Pin, D}]}, permanent, 5000, worker, [gpio]} 
+			{Name, {gpio, start, [{Pin, D}]}, permanent, 5000, worker, [gpio]} 
 		end, ?GPIOs), 
     {ok, { {one_for_one, 5, 10}, Pins} }.
 

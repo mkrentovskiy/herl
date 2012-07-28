@@ -52,14 +52,13 @@ gpio_seize(Pin, D) ->
 	gpio_open(Pin).
 
 gpio_open(Pin) ->
-	{ok, ValF} = file:open("/sys/class/gpio/gpio" ++ integer_to_list(Pin) ++ "/value", [read, write]),
-  	ValF.
+	file:open("/sys/class/gpio/gpio" ++ integer_to_list(Pin) ++ "/value", [read, write]).
 
 gpio_close(ValF) -> 
 	file:close(ValF).
 
 gpio_dir(Pin, D) ->
-	{ok, DirF} = file:open("/sys/class/gpio/gpio" ++ integer_to_list(Pin) ++ "/dir", [write]),
+	{ok, DirF} = file:open("/sys/class/gpio/gpio" ++ integer_to_list(Pin) ++ "/direction", [write]),
 	case D of
 		in  -> file:write(DirF, "in");
 		out -> file:write(DirF, "out")
@@ -76,6 +75,6 @@ gpio_read(ValF) ->
 	Val.
 
 gpio_release(Pin) ->
-  {ok, UexpF} = file:open("/sys/class/gpio/unexport", [write]),
-  file:write(UexpF, integer_to_list(Pin)),
-  file:close(UexpF).
+	{ok, UexpF} = file:open("/sys/class/gpio/unexport", [write]),
+	file:write(UexpF, integer_to_list(Pin)),
+	file:close(UexpF).
